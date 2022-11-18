@@ -1,0 +1,138 @@
+{% if element.data is not null %}
+	<article class="reveal row col-12 m-0 shadow mb-4" style="background:rgba(255,255,255,0.8);padding:5rem 10vw 5rem 10vw">
+		<div class="col-12 col-md-8 m-auto serif color-brown">
+			{{element.data.content|raw}}
+		</div>
+	</article>
+{% elseif element.information is not null %}
+	<article class="row col-12 m-0 mb-4">
+		<div class="reveal shadow information col-11 col-md-7" style="
+	    background: rgba(255,255,255,0.5);
+	    margin: 0 auto 0 auto;
+	    ">
+	    	<h3 class="col-12 sans-serif color-brown text-center pt-2">COORDONNÉES</h3>
+	    	<div class="col-12 col-md-8 m-auto p-2 border" style="border-radius:50px;background:#f4f4f4"><span class="icon-phone p-2 color-orange"></span><span class="p-2 align-text-bottom"><a href="tel:{{element.information.phone|phone}}" class="link--minor">{{element.information.phone|phone}}</a></span></div>
+	    	<div class="col-12 col-md-8 ml-auto mr-auto mt-2 mb-2 p-2 border" style="border-radius:50px;background:#f4f4f4"><span class="icon-email p-2 color-orange"></span><span class="p-2 align-text-bottom"><a href="mailto:{{element.information.mail|mail}}" class="link--minor">{{element.information.mail|mail}}</a></span></div>    	
+		</div>
+	</article>
+{% elseif element.dataLeft is not null %}
+	<article class="reveal row col-12 m-0 shadow mb-4" style="background:rgba(255,255,255,0.8);padding:5rem 10vw 5rem 10vw">
+		<div class="col-12 col-md-8 serif color-brown font-weight-light">
+			{{element.dataLeft.content|raw}}
+		</div>
+		<div class="col-12 col-md-4 serif color-brown">
+			<div class="square rounded-circle" style="background:url({{ vich_uploader_asset(element.dataLeft.image, 'imageFile') }});background-position: center;background-size:cover"/>
+			</div>
+		</div>
+	</article>
+{% elseif element.dataRight is not null %}
+	<article class="reveal row col-12 m-0 shadow mb-4" style="background:rgba(255,255,255,0.8);padding:5rem 10vw 5rem 10vw">
+		<div class="col-12 col-md-4 serif color-brown">
+			<div class="square rounded-circle" style="background:url({{ vich_uploader_asset(element.dataLeft.image, 'imageFile') }});background-position: center;background-size:cover"/>
+			</div>
+		</div>
+		<div class="col-12 col-md-8 serif color-brown font-weight-light">
+			{{element.dataLeft.content|raw}}
+		</div>
+	</article>
+{% elseif element.schedulde is not null %}
+
+	{% set firstI = '' %}
+	{% set lastI = '' %}
+	{% set fields = {} %}
+
+	{% for field in element.schedulde.fields|sortbyfield('day') %}
+		{% if loop.first %}
+			{% set firstI = field.day %}
+		{% else %}
+			{% set lastI = field.day %}
+		{% endif %}
+		{% set fields = fields|merge({ (loop.index0): field}) %} 
+	{% endfor %}
+	
+	<article class="reveal row col-12 m-0 shadow mb-4" style="padding:0 10vw 0 10vw;background:rgba(82,179,159,0.6) ">
+		<table class="col-12 table color-brown serif" style="
+			border-radius:50px;
+			overflow:hidden;
+		">
+			{% for i in firstI..lastI %}
+				<tr>
+				{% for field in fields if field.day == i%}
+
+				{% if loop.first %}				
+					<th class="w-25 sans-serif text-center align-middle color-orange" scope="row">
+						{{dayConst[i]}}
+					</th>
+				{% endif %}
+
+					<td>
+						{{field.startTime|date('H:i')}} 
+						{% if field.endTime is not null %}
+						- {{field.endTime|date('H:i')}}
+						{% endif %}<br/>
+						<b>{{field.place|upper}}</b>
+					</td>
+				{% endfor %}
+				</tr>
+			{% endfor %}
+		</table>
+	</article>
+{% elseif element.rate is not null %}
+	<article class="row col-12 m-0 mb-4">
+		<div class="reveal d-flex justify-content-start flex-wrap shadow rateBlock">
+			{% if element.rate.name is not null %}	    
+	    	<h3 class="col-12 sans-serif color-brown text-center pt-2">{{element.rate.name|upper}}</h3>
+			{% endif %}
+			{% if element.rate.content is not null %}	    			
+	    	<p class="col-12 serif color-brown pl-4 pr-4"><i>{{element.rate.content}}</i></p>
+			{% endif %}
+			{% for field in element.rate.fields %}
+			<div class="rate rounded-circle d-flex color-brown" style="background:{{field.color}}70;margin:1.65vw;">
+				<span class="m-auto text-center serif">
+					<span style="font-size: 0.8rem;">{{field.event|upper}}</span>
+					<br/>
+					<span style="font-size: 1rem;"><b>{{field.price}}€</b></span>
+				</span>
+			</div>
+			{% endfor %}
+		</div>
+	</article>
+{% elseif element.cover is not null %}
+	<article class="reveal row col-12 m-0 shadow mb-4 p-0">
+		<div class="col-12 d-flex coverElement p-4 p-md-1" style="background:url({{ vich_uploader_asset(element.cover.image, 'imageFile') }}) no-repeat center center">
+			<h2 class="m-auto text-center coverElement-title" style="color:white;text-shadow: 1px 1px 2px grey;">{{element.cover.title}}</h2>
+		</div>
+	</article>
+{% elseif element.articleBlock is not null %}
+	<article class="reveal col-12 d-flex justify-content-around m-0 mb-4 flex-wrap">
+		{% for article in articles  %}
+			<div class="shadow p-0 col-5 col-md-2 rounded mb-4 mb-md-0" style="background:rgba(255,255,255,0.8)">
+				<div class="text-uppercase w-100 rounded-top font-weight-bold" style="background:{{colorCategoryConst[article.category]}};height:1.2rem;line-height: 15px;letter-spacing: 5px;color: white;overflow: hidden;padding-left: 10px;padding-top: -7px;font-size: xx-large;">
+					{{article.category}}
+				</div>
+				<div class="p-3">
+					<a data-article="{{article.id}}" class="link--articleBlock" style="cursor:pointer">
+						<h6 class="sans-serif pb-2" style="border-bottom: 1px solid {{colorCategoryConst[article.category]}};font-weight:600">{{article.title}}</h6>
+						<p>{{article.content|striptags|length > 50 ? article.content|striptags|slice(0, 50) ~ '...' : article.content|striptags}}</p>
+					</a>
+					<i><small class="font-weight-light serif">
+						Publié le {{article.date|date('d/m/Y')}} dans <a href="{{path('articles',{'category':article.category})}}" style="color:{{colorCategoryConst[article.category]}}">{{categoryConst[article.category]}}</a>
+					</small></i>
+				</div>
+			</div>
+		{% endfor %}
+			<a class="shadow col-2 rounded d-flex link--minor col-11 col-md-2 p-3 text-center" style="background:rgba(255,255,255,0.8)" href="{{asset('articles')}}" class="link--minor">
+				<h5 class="m-auto">Voir plus d'actualités</h5>
+			</a>		
+	</article>
+{% elseif element.presentation is not null %}
+	<article class="reveal row col-12 m-0 shadow mb-4 color-brown" style="background:rgba(255,255,255,0.8);padding:5rem 10vw 5rem 10vw">
+		<div class="col-12 col-md-3 mb-4 mb-md-0">
+			<h4 class="text-center pb-3 mb-4" style="border-bottom: 2px solid #FF6D39;">{{element.presentation.name}}</h4>
+			<img src="{{ vich_uploader_asset(element.presentation.image, 'imageFile') }}" class="d-block w-75 rounded-circle m-auto"/>
+		</div>
+		<div class="col-12 col-md-9 serif font-weight-light" style="font-size:large">
+			{{element.presentation.content|raw}}
+		</div>
+	</article>
+{% endif %}

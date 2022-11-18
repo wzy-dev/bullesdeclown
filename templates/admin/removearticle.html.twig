@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer une actualité{% endblock %}
+
+{% block body %}
+    <div style="background:white" class="rounded border p-4 m-4">
+     	<h3>Suppression d'un article</h3>
+		<p>Êtes-vous vraiment certain de vouloir supprimer l'article suivant ?</p><hr/>
+
+		{% include 'plugin/displayArticle.html.twig' with {'article': article} %}
+
+		<div class="mt-3">
+			<a href="{{path('admin_remove_article',{'article':article.id,'confirm':true})}}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+			<a href="{{path('admin_edit_articles')}}"><button type="button" class="btn btn-link">Annuler</button></a>
+		</div>
+    </div>
+{% endblock %}

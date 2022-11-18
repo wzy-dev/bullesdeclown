@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Bulles de clown{% endblock %}</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">     
+		<link rel="stylesheet" href="{{asset('css/style.css')}}">        		   
+        <link rel="stylesheet" href="{{asset('font/style.css')}}">                  
+        {% block stylesheets %}
+        {% endblock %}
+    </head>
+    <body class="container-fluid p-0" style="background: url({{asset('img/bg.jpg')}}) no-repeat center fixed; background-size:cover;">
+        <div class="d-none popup position-fixed vw-100 vh-100 justify-content-center" style="opacity:0;background:rgba(0,0,0,0.4);z-index:1000;" style=""><img src="{{asset('img/load.svg')}}" class="loader"/></div>        
+        {% block body %}{% endblock %}
+        <div class="row col-12 p-4 m-0" style="background:#B35F40">
+            <div class="col-12 col-md-6 p-0 mb-3 mb-md-0 d-flex align-items-center justify-content-center justify-content-md-start text-center text-md-left">
+                <span class="serif" style="color:white;font-weight:300">© COPYRIGHT 2019 | Bulles de clown<br/>
+                Un site créé par <a class="link--minor link--blue" href="mailto:wegrzyn.simon@gmail.com">Simon Wegrzyn​</a><br/>
+                <a class="link--minor link--blue" href="{{path('mentions')}}">Mentions légales</a>
+                </span>
+            </div>
+            <div class="col-12 col-md-6 p-0 d-flex align-items-center justify-content-center justify-content-md-end">
+                <iframe id="haWidget" allowtransparency="true" src="https://www.helloasso.com/associations/bulles-de-clown/formulaires/1/widget-bouton" style="height:60px;width:200px;border:none;"></iframe>
+            </div>
+        </div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>                
+        <script src="{{asset('js/loader.js')}}"></script>       
+        <script type="text/javascript">
+            $('.menuPort').click(function(){
+                $('.menuPort-display').show("400");
+            });
+            $('.menuPort-close').click(function(){
+                $('.menuPort-display').hide("400");
+            });
+        </script>     
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

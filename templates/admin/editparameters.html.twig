@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer mes informations{% endblock %}
+
+{% block body %}
+  	{% for message in app.session.flashbag.get('notice') %}
+    	<div class="ml-4 mt-4 mr-4 mb-0 alert alert-success">
+      		<p class="m-2">{{ message }}</p>   
+    	</div> 
+  	{% endfor %}
+
+    <div class="pt-4 pl-4 pr-4">
+      <a href="{{path('admin')}}"><button type="button" class="btn btn-link p-0">Retour à l'administration</button></a>  
+    </div>
+
+    <div style="background:white" class="rounded border p-4 m-4">
+     	<h3>Modification des informations :</h3><hr/>
+		  {{ form(form) }}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+  <style>
+    label.required:before, legend.required:before {
+        font-weight: bold;
+        content: "* ";
+    }
+  </style>
+{% endblock %}

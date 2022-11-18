@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Roboto+Slab:100,300,400,700&display=swap');
+
+@-webkit-keyframes Position {
+  0% {
+    background-position: 0% 100%
+  }
+  50% {
+    background-position: 0% 0%
+  }
+  100% {
+    background-position: 0% 100%  }
+}
+
+@keyframes Position {
+  0% {
+    background-position: 0% 100%
+  }
+  50% {
+    background-position: 0% 0%
+  }
+  100% {
+    background-position: 0% 100%  }
+}
+
+.custom-file-label::after {
+  content: "Parcourir";
+}
+
+.cover {
+  background: linear-gradient(23deg, rgba(132,70,47,1) 0%,rgba(255,109,57,1) 100%);
+  background-size: 100% 200%;
+  -webkit-animation: Position 15s ease infinite;
+          animation: Position 15s ease infinite;  
+}
+
+.cover-alpha {
+  background: linear-gradient(23deg, rgba(132,70,47,0.1) 0%,rgba(132,70,47,0.1) 30%,rgba(255,109,57,0.9) 100%);
+  background-size: 100% 200%;
+  -webkit-animation: Position 10s ease infinite;
+          animation: Position 10s ease infinite;  
+}
+
+.sans-serif {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.serif {
+  font-family: 'Roboto Slab', serif;
+}
+
+.link--minor {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link--minor:hover {
+  color: inherit;
+}
+
+.link--articleBlock {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link--articleBlock:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link--articleBlock:hover h6 {
+  font-weight: 800;
+}
+
+.link--article:hover h5 {
+  color: #007bff;
+}
+
+.link--article:hover {
+  background: #f7f7f7;
+}
+
+.link--major {
+  color: inherit;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.link--major:hover {
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+.link--major:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 1.5px;
+  left: 50%;
+  position: absolute;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+
+.link--major:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+
+.link--blue:hover {
+  color: #8FFFE9;
+}
+
+.link--blue:after {
+  background: #8FFFE9;
+}
+
+.link--orange:hover {
+  color: #B35F40;
+}
+
+.link--orange:after {
+  background: #B35F40;
+}
+
+.link--green:hover {
+  color: #52B39F;
+}
+
+.link--green:after {
+  background: #52B39F;
+}
+
+.link--white:hover {
+  color: white;
+}
+
+.link--white:after {
+  background: white;
+}
+
+.arrow{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+}
+.arrow span{
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-bottom: 5px solid #52B39F;
+    border-right: 5px solid #52B39F;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    margin: -10px;
+    -webkit-animation: animate 3s infinite;
+            animation: animate 3s infinite;
+}
+.arrow span:nth-child(2){
+    -webkit-animation-delay: -0.2s;
+            animation-delay: -0.2s;
+}
+.arrow span:nth-child(3){
+    -webkit-animation-delay: -0.4s;
+            animation-delay: -0.4s;
+}
+@-webkit-keyframes animate {
+    0%{
+        opacity: 0;
+        -webkit-transform: rotate(45deg) translate(-20px,-20px);
+                transform: rotate(45deg) translate(-20px,-20px);
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        -webkit-transform: rotate(45deg) translate(20px,20px);
+                transform: rotate(45deg) translate(20px,20px);
+    }
+}
+@keyframes animate {
+    0%{
+        opacity: 0;
+        -webkit-transform: rotate(45deg) translate(-20px,-20px);
+                transform: rotate(45deg) translate(-20px,-20px);
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        -webkit-transform: rotate(45deg) translate(20px,20px);
+                transform: rotate(45deg) translate(20px,20px);
+    }
+}
+
+table {
+  border:1px solid black;
+}
+table tr, table td, table th {
+  border-color:#52B39F !important;
+}
+
+table tr:first-child td, table tr:first-child th {
+  border-top: none !important;
+}
+
+table tr:not(:last-child) {
+  border-bottom: 1px solid #52B39F;
+}
+
+table tr:not(:first-child) {
+  border-top: 1px solid #52B39F;
+}
+
+.color-brown {
+  color: #693726 !important;
+}
+
+.color-orange {
+  color: #FF6D39 !important;
+}
+
+.rate {
+  height:10vw;
+  width:10vw;
+}
+
+.rate:nth-of-type(even) {
+  position: relative;
+  top: 5vw;
+}
+
+.option--vert {
+  background: #52B39F;
+  color:white;
+}
+
+.option--bleu {
+  background: #8FFFE9;
+  color:white;
+}
+
+.option--orange {
+  background: #FF6D39;
+  color:white;
+}
+
+.square {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.square:after {
+  content: "";
+  display: block;
+  padding: 0 0 100% 0 !important;
+}
+
+.square-content {
+  display: flex;
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+}
+
+p {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 300;
+}
+
+button, list-group-item {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.information {
+  border-radius: 80px;
+}
+
+.rateBlock {
+  border-radius: 80px;
+  padding-bottom: 5vw;
+  background: rgba(255,255,255,0.5);
+  width: 80vw;
+  margin: 0 auto 0 auto;
+}
+
+.coverElement {
+  max-height: 75vh;
+  height: 50rem;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+}
+  .coverElement-title {
+    font-size:4rem !important;
+  }
+
+.article-box {
+  padding-bottom: 4rem !important;
+}
+
+
+@media screen and (max-width: 767px) {
+  .information {
+    border-radius: 30px;
+  }
+
+  .rateBlock {
+    border-radius: 80px;
+    padding-bottom: 13vw;
+  }
+
+  .rate {
+    height:23vw;
+    width:23vw;
+  } 
+
+  .rate:nth-of-type(even) {
+    position: relative;
+    top: 0vw;
+  }
+
+  .rate:nth-of-type(3n+2) {
+    position: relative;    
+    top: 10vw !important;
+  }
+
+  .coverElement {
+    height: auto !important;
+    background-attachment: unset !important;
+  }
+    .coverElement-title {
+      font-size:3rem !important;
+    }
+
+  .article-box {
+    padding-bottom: 6rem !important;
+  }
+}

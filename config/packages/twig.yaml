@@ -1,0 +1,18 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes: 
+        - 'bootstrap_4_horizontal_layout.html.twig'
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'    
+    globals:
+        dayConst: '%dayConst%'
+        typeConst: '%typeConst%'
+        categoryConst: '%categoryConst%'
+        colorCategoryConst:             
+            general: '#B35F40'    
+            yoga: '#FF6D39'    
+            clown: '#8FFFE9'    
+            teambuilding: '#A8FFEE'    
+            bienetre: '#52B39F'    
+            organisation: '#4f4f4f'         

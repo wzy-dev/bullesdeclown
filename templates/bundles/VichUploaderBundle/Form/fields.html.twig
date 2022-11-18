@@ -1,0 +1,21 @@
+{# templates/bundles/FOSUserBundle/Registration/confirmed.html.twig #}
+{# the special '!' prefix avoids errors when extending from an overridden template #}
+{% extends "@!VichUploader/Form/fields.html.twig" %}
+
+{% block vich_image_widget %}
+    <div class="vich-image">
+        <div class="custom-file">
+            <input type="file" id="{{form.file.vars.id}}" name="{{form.file.vars.full_name}}" class="custom-file-input">
+            <label for="cover_image_imageFile_file" class="custom-file-label">Choisissez une image...</label>
+        </div>
+        {%- if form.delete is defined -%}
+            {{- form_row(form.delete) -}}
+        {%- endif -%}
+
+        <img id="image_preview" class="col-4" {%- if image_uri -%}src="{{ image_uri }}"{%- endif -%} alt="" />
+        
+<!--         {%- if download_uri -%}
+            <a class="row" href="{{ download_uri }}">{{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}</a>
+        {%- endif -%} -->
+    </div>
+{% endblock %}

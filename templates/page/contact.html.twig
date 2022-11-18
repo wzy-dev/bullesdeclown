@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact / {{ parent() }}{% endblock %}
+
+{% block body %}
+	{% include 'plugin/displayMenu.html.twig' %}
+	<section class="pt-4">
+		<article class="row col-12 m-0 shadow mb-4" style="background:rgba(255,255,255,0.8);padding:5rem 1.5rem 5rem 1.5rem">
+			<div class="col-4 serif color-brown d-flex justify-content-center p-4">
+				{% for message in app.flashes('success') %}
+				   	<div class="alert alert-success">
+						<strong>Succés !</strong> {{ message }}
+					</div>
+				{% endfor %}				
+				<div>
+				<h1 class="pb-3">Contactez moi !</h1>
+				<p>N’hésitez pas, une demande de projet, une envie de discuter, de boire un café ?</p>
+				<p>
+			    	<div class="col-12 pl-0"><span class="icon-phone p-2 color-orange"></span><span class="p-2 align-text-bottom"><a href="tel:{{parameters.phone|phone}}" class="link--minor">{{parameters.phone|phone}}</a></span></div>
+			    	<div class="col-12 mt-2 mb-2 pl-0"><span class="icon-email p-2 color-orange"></span><span class="p-2 align-text-bottom"><a href="mailto:{{parameters.mail|mail}}" class="link--minor">{{parameters.mail|mail}}</a></span></div>    	
+				</p>
+			</div>
+			</div>
+			<div class="col-8 serif color-brown">
+		        {{form(form,{'attr':{'class':'col-12 p-2'}})}}
+			</div>
+    	</article>
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://unpkg.com/scrollreveal"></script>	
+	<script>
+		var reveal = {
+			origin : 'bottom',
+			distance : '20px',
+			duration : 500,
+			reset    : true,
+			easing   : 'ease-in-out'
+		}
+		window.sr = ScrollReveal();
+		sr.reveal('.reveal', reveal);
+	</script>
+{% endblock %}
+
+{% block stylesheets %}
+	<style>
+		.btn-primary {
+	    background-color: #B35F40;
+	    border-color: #B35F40;
+		}
+		.btn-primary:hover {
+	    background-color: #874831;
+	    border-color: #874831;
+		}
+    </style>
+{% endblock %}

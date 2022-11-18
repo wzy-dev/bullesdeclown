@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+<nav class="w-100 mt-4 d-flex d-md-none justify-content-center menuPort position-absolute font-weight-bold" style="opacity:0.9;z-index:301">
+	<div class="serif" style="color:white;">
+		<span><a class="link--major link--white">Menu</a></span>
+	</div>
+</nav>
+<nav class="vw-100 vh-100 cover menuPort-display position-fixed" style="top:0;z-index:301;display:none;">
+	<span class="icon-close position-absolute p-4 menuPort-close font-weight-bold" style="color:white;top:0;right:0"></span>	
+	<ul style="list-style:none;color:white;top: 50%;left: 50%;position: absolute;transform: translate(-50%, -50%)" class="p-0 m-0 font-weight-bold text-center">
+		<li class="pb-5"><a class="link--major link--white" href="{{path('yoga')}}">Accueil</a></li>
+		<li class="pb-4"><a class="link--major link--white" href="{{path('yoga')}}">Yoga</a></li>
+		<li class="pb-4"><a class="link--major link--white" href="{{path('clown')}}">Clown</a></li>
+		<li class="pb-4"><a class="link--major link--white" href="{{path('teambuilding')}}">Team-Building</a></li>
+		<li class="pb-4"><a class="link--major link--white" href="{{path('bienetre')}}">Ayurvéda</a></li>
+		<li class="pb-4"><a class="link--major link--white" href="{{path('organisation')}}">Séminaires</a></li>
+		<li><a class="link--major link--white" href="{{path('contact')}}">Contact</a></li>
+	</ul>
+</nav>
+
+<div class="row p-0 vh-100 col-12 m-0" style="position:relative;z-index:200;background-size:cover;background-image:url('{{asset('img/bg_index.jpg')}}')">
+<header class="cover-alpha row m-0 p-5 h-100 w-100">
+	<div class="sans-serif mt-auto mb-auto pt-2 pb-2 pl-5" style="color:white;border-left: 8px solid #52B39F;">
+		<h1 class="col-12 p-0 font-weight-bold text-uppercase" style="font-size:3rem;">Bulles de clown</h1>
+		<h6 class="col-9 p-0 font-weight-light" style="font-size:2rem;">Animations dans le domaine du bien-être, du développement personnel, culturel, social, éducatif et artistique.</h6>
+		<div class="arrow d-none d-md-block">
+            <span></span>
+            <span></span>
+            <span></span>
+		</div>
+	</div>
+</header>
+</div>
+
+<div class="position-sticky shadow-lg col-12 d-none d-md-block" style="z-index:100;margin-top:-5rem;background:#B35F40;top:0;height:5rem;"></div>
+<section class="pt-4">
+	<nav style="color:white;top:30px;right:45px;z-index:300" class="row serif position-fixed d-none d-md-block">
+		<span class="pr-4"><a class="link--major link--blue" href="{{path('yoga')}}">Yoga</a></span>
+		<span class="font-weight-bold" style="color:#52B39F">/</span>
+		<span class="pl-4 pr-4"><a class="link--major link--blue" href="{{path('clown')}}">Clown</a></span>
+		<span class="font-weight-bold" style="color:#52B39F">/</span>
+		<span class="pl-4 pr-4"><a class="link--major link--blue" href="{{path('teambuilding')}}">Team-Building</a></span>
+		<span class="font-weight-bold" style="color:#52B39F">/</span>
+		<span class="pl-4 pr-4"><a class="link--major link--blue" href="{{path('bienetre')}}">Ayurvéda</a></span>
+		<span class="font-weight-bold" style="color:#52B39F">/</span>
+		<span class="pl-4 pr-4"><a class="link--major link--blue" href="{{path('organisation')}}">Séminaires</a></span>
+		<span class="font-weight-bold" style="color:#52B39F">/</span>
+		<span class="pl-4"><a class="link--major link--blue" href="{{path('contact')}}">Contact</a></span>
+	</nav>	
+	{% for element in elements|sortbyfield('rank') %}
+		{% include 'plugin/displayElement.html.twig' with {'element': element} %}
+	{% endfor %}
+</section>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('js/article.js')}}"></script>	
+	<script src="https://unpkg.com/scrollreveal"></script>	
+	<script>
+		initArticleBlock('{{ app.request.getSchemeAndHttpHost() }}{{app.request.baseUrl}}/api/show/article/');	
+		var reveal = {
+			origin : 'bottom',
+			distance : '20px',
+			duration : 700,
+			reset    : true,
+			easing   : 'ease-in-out'
+		}
+		window.sr = ScrollReveal();
+		sr.reveal('.reveal', reveal);
+	</script>
+{% endblock %}

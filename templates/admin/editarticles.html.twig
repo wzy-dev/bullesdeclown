@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les actualités{% endblock %}
+
+{% block body %}
+  <div class="pl-4 pt-4 pr-4 d-flex justify-content-between">
+    <div>
+      <a href="{{path('admin_new_article')}}"><button type="button" class="btn btn-primary">Écrire un article</button></a>
+      <a href="{{path('admin')}}"><button type="button" class="btn btn-link">Retour à l'administration</button></a>  
+    </div>
+    <form class="col-4 row" method="GET" action="{{path('admin_edit_articles')}}">
+      <div class="col-6 p-0">
+        <select class="custom-select" name="category">
+          <option value="all">Tout voir</option>          
+          {% for key, category in categoryConst %}
+          <option value="{{key}}" {% if key == app.request.query.get("category") %}selected="selected"{% endif %}>{{category}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-6 p-0 pl-3">
+        <button type="submit" class="btn btn-success col-12">Filtrer</button>
+      </div>
+    </form>
+  </div>
+  <ul class="list-group p-4">
+    <li class="list-group-item active">Derniers articles publiés</li>     
+    {% for article in pagination %}
+      <a class="list-group-item link--minor link--article" href="{{path('admin_edit_article',{'article':article.id})}}"><li style="list-style:none">
+        <h5>{{article.title}}</h5>
+        <hr/>
+          <p>{{article.content|striptags|length > 150 ? article.content|striptags|slice(0, 150) ~ '...' : article.content|striptags}}</p>
+          <i>Publié le {{article.date|date('d/m/Y')}} dans {{categoryConst[article.category]}}</i>
+      </li></a>
+    {% endfor %}
+  </ul>
+  <div class="ml-4 mr-4">
+      {{ knp_pagination_render(pagination) }}
+  </div>
+{% endblock %}

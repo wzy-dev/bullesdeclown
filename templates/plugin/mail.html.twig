@@ -1,0 +1,20 @@
+<html>
+<body>
+	<table style="width:80%;margin:auto">
+		<tr>
+			<td style="width:10%">		
+				<img src="https://mariecouleur.fr/img/logo_mariecouleur.png" style="width:100%"/>
+			</td>		
+			<td style="text-align:right">
+				<i>Message reçu de {{ name }} (<a href="mailto:{{ email }}">{{ email }}</a>)</i>
+			</td>	
+		</tr>
+	</table>
+	<hr />
+	<br />
+	<div style="width:80%;margin:auto">
+		<h3>{{ subject }}</h3>
+		{{ body }}
+	</div>
+</body>
+</html>

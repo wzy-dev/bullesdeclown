@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div style="background:white" class="rounded border p-4 m-4">
+      	<h3>Gestion des articles :</h3><hr/>
+      	<div class="mb-3">
+      	    <a href="{{path('admin_new_article')}}" class=""><button type="button" class="btn btn-primary">Écrire un article</button></a>
+      	    <a href="{{path('admin_edit_articles')}}" class="ml-2"><button type="button" class="btn btn-primary">Gérer les articles</button></a>
+      	</div>
+		<ul class="list-group">
+			<li class="list-group-item active">Derniers articles publiés</li>			
+			{% for article in articles %}
+				<a class="list-group-item link--minor link--article" href="{{path('admin_edit_article',{'article':article.id})}}"><li style="list-style:none">
+					<h5>{{article.title}}</h5>
+					<hr/>
+					<p>{{article.content|striptags|length > 150 ? article.content|striptags|slice(0, 150) ~ '...' : article.content|striptags}}</p>
+					<i>Publié le {{article.date|date('d/m/Y')}} dans {{categoryConst[article.category]}}</i>
+				</li></a>
+			{% endfor %}
+		</ul>
+    </div>
+
+	<ul class="list-group p-4">
+		<li class="list-group-item active">Structure</li>
+		<li class="list-group-item"><a href="{{path('admin_edit_elements',{'category':'index'})}}">Accueil</a></li>
+		<li class="list-group-item"><a href="{{path('admin_edit_elements',{'category':'yoga'})}}">Yoga</a></li>
+		<li class="list-group-item"><a href="{{path('admin_edit_elements',{'category':'clown'})}}">Clown</a></li>
+		<li class="list-group-item"><a href="{{path('admin_edit_elements',{'category':'teambuilding'})}}">Team-Building</a></li>
+		<li class="list-group-item"><a href="{{path('admin_edit_elements',{'category':'bienetre'})}}">Ayurvéda</a></li>
+		<li class="list-group-item"><a href="{{path('admin_edit_elements',{'category':'organisation'})}}">Séminaires</a></li>
+	</ul>
+
+	<ul class="list-group p-4">
+		<li class="list-group-item active">Mes informations</li>
+		<li class="list-group-item"><a href="{{path('admin_edit_parameters')}}">Modifier mes informations</a></li>
+	</ul>
+{% endblock %}

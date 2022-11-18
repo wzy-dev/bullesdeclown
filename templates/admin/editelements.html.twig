@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les éléments{% endblock %}
+
+{% block body %}
+  <div class="pt-4">
+    <a href="{{path('admin_new_element',{'category':category})}}" class="ml-4"><button type="button" class="btn btn-primary">Ajouter un élément</button></a>
+    <a href="{{path('admin')}}"><button type="button" class="btn btn-link">Retour à l'administration</button></a>  
+  </div>
+	<ul id="sortable" class="list-group p-4" style="list-style:none">
+	{% for element in elements|sortbyfield('rank') %}
+    {% if element.type != 'undefined' %}
+		<li class="ui-state-default list-group-item d-flex flex-wrap">
+      <div class="pb-3 pl-5 pr-5 pr-md-0 pl-md-0 pb-md-0 col-12 col-md-4 col-lg-3"><img style="width:100%" src="{{ asset('img/'~element.type~'_block.jpg') }}"/></div>
+      <div class="col-12 col-md-8 col-lg-9">
+        <h4 class="font-weight-bold">Élément de type {{typeConst[element.type].name|lower}}</h4>
+        <ul>
+          <li class="handle text-dark" style="cursor:pointer">Déplacer cet élément <b>(maintenir)</b></li>
+          <li><a class="text-warning" href="{{path('admin_edit',{'type':element.type,'element':element.id})}}">Modifier cet élément</a></li>         
+          <li><a class="text-danger" href="{{path('admin_remove_element',{'element':element.id})}}">Supprimer cet élément</a></li>
+        </ul>
+      </div>
+    </li>
+    {% endif %}
+	{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  	$( function() {
+    	$( "#sortable" ).sortable({
+          axis: 'y',
+          containment: '.container-fluid',
+          handle: '.handle',
+      		start: function(event, ui) {
+       			var start_pos = ui.item.index();
+        		ui.item.data('start_pos', start_pos);
+      		},
+      		update: function(event, ui) {
+      			var start_pos = ui.item.data('start_pos');
+        		var end_pos = ui.item.index();
+
+            showLoader();
+
+            $.ajax('{{ app.request.getSchemeAndHttpHost() }}{{app.request.baseUrl}}/api/inverse/rank/'+start_pos+'/by/'+end_pos+'/in/{{category}}')
+            .done(function(data) {
+                data=JSON.parse(data);
+                hideLoader();
+            })
+            .fail(function() {
+                alert( "error" );
+                hideLoader();
+            });                    
+      		}
+    	});
+    	$( "#sortable" ).disableSelection();
+  	} );
+</script>
+{% endblock %}

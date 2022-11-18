@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Yoga / {{ parent() }}{% endblock %}
+
+{% block body %}
+	{% include 'plugin/displayMenu.html.twig' %}
+	<section class="pt-4">
+	{% for element in elements|sortbyfield('rank') %}
+		{% include 'plugin/displayElement.html.twig' with {'element': element} %}
+	{% endfor %}
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('js/article.js')}}"></script>	
+	<script src="https://unpkg.com/scrollreveal"></script>	
+	<script>
+		initArticleBlock('{{ app.request.getSchemeAndHttpHost() }}{{app.request.baseUrl}}/api/show/article/');	
+		var reveal = {
+			origin : 'bottom',
+			distance : '20px',
+			duration : 500,
+			reset    : true,
+			easing   : 'ease-in-out'
+		}
+		window.sr = ScrollReveal();
+		sr.reveal('.reveal', reveal);
+	</script>
+{% endblock %}

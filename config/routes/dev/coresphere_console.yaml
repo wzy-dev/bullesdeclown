@@ -1,0 +1,3 @@
+coresphere_console:
+    resource: "@CoreSphereConsoleBundle/resources/config/routing.yml"
+    type: extra    

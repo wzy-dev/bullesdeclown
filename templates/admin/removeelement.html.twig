@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer un élément{% endblock %}
+
+{% block body %}
+    <div style="background:white" class="rounded border p-4 m-4">
+     	<h3>Suppression d'un élément</h3>
+		<p>Êtes-vous vraiment certain de vouloir supprimer l'élément suivant ?</p><hr/>
+
+		{% include 'plugin/displayElement.html.twig' with {'element': element} %}
+
+		<div class="mt-3">
+			<a href="{{path('admin_remove_element',{'element':element.id,'confirm':true})}}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+			<a href="{{path('admin_edit_elements',{'category':element.category})}}"><button type="button" class="btn btn-link">Annuler</button></a>
+		</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales / {{ parent() }}{% endblock %}
+
+{% block body %}
+	{% include 'plugin/displayMenu.html.twig' %}
+	<section class="pt-4">
+		<article class="row col-12 m-0 shadow mb-4" style="background:rgba(255,255,255,0.8);padding:5rem 10vw 5rem 10vw">
+			<div class="col-12 col-md-8 m-auto serif color-brown">
+				<h3>Mentions légales</h3>
+				<div class="pb-3">
+					<h5>Bulles de clown</h5>
+					22 Rue Montplaisir<br>
+					17100 Saintes<br>
+					France<br>
+					Téléphone : 06 86 84 51 46
+				</div>
+				<div>
+				Le site www.bullesdeclown.fr est hébergé chez OVH.<br>
+				2 rue Kellermann<br>
+				59100 Roubaix<br>
+				France
+				</span>
+			</div>
+		</article>
+	</section>
+{% endblock %}

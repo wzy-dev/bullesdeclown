@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actualités / {{ parent() }}{% endblock %}
+
+{% block body %}
+	{% include 'plugin/displayMenu.html.twig' %}
+	<section class="pt-4">		
+	    <form class="row justify-content-end col-12 m-0 pr-4 pl-4" method="GET" action="{{path('articles')}}">
+  			<div class="col-3 p-0">
+	        	<select class="custom-select" name="category">
+	          	<option value="all">Tout voir</option>          
+	          	{% for key, category in categoryConst %}
+	          	<option value="{{key}}" {% if key == app.request.query.get("category") %}selected="selected"{% endif 	%}>{{category}}</option>
+	          	{% endfor %}
+	        	</select>
+	      	</div>
+	      	<div class="col-2 p-0 pl-3">
+	        	<button type="submit" class="btn btn-success col-12">Filtrer</button>
+	      	</div>
+	    </form>		
+	  	<ul class="list-group pt-4 pl-4 pr-4">
+		    {% for article in pagination %}
+		      	<li data-article="{{article.id}}" class="link--articleBlock list-group-item link--minor link--article mb-4 rounded p-3" style="list-style:none;cursor:pointer">
+					<div class="text-uppercase w-100 rounded font-weight-bold mb-3" style="background:{{colorCategoryConst[article.category]}};height:1.2rem;line-height: 15px;letter-spacing: 5px;color: white;overflow: hidden;padding-left: 10px;padding-top: -7px;font-size: xx-large;">
+						{{article.category}}
+					</div>		      		
+			        <h5>{{article.title}}</h5>
+			        <hr/>
+			          <p class="serif">{{article.content|striptags|length > 300 ? article.content|striptags|slice(0, 300) ~ '...' : article.content|striptags}}</p>
+			          <i class="font-weight-light serif">Publié le {{article.date|date('d/m/Y')}} dans <a href="{{path('articles',{'category':article.category})}}" style="color:{{colorCategoryConst[article.category]}}">{{categoryConst[article.category]}}</a></i>
+		      	</li>
+		    {% endfor %}
+	  	</ul>
+	  	<div class="ml-4 mr-4">
+	      	{{ knp_pagination_render(pagination) }}
+	  	</div>
+	</section>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+	.link--article:hover h5 {
+	color: inherit;
+	}
+	.page-link {
+	color: #B35F40;
+	}.page-link:hover {
+    z-index: 2;
+    color: #B35F40;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+	}
+	a:hover {
+	    color: #B35F40
+	}
+	.page-item.active .page-link {
+    background-color: #B35F40;
+    border-color: #B35F40;
+	}
+</style>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('js/article.js')}}"></script>	
+	<script src="https://unpkg.com/scrollreveal"></script>	
+	<script>
+		initArticleBlock('{{ app.request.getSchemeAndHttpHost() }}{{app.request.baseUrl}}/api/show/article/');	
+		var reveal = {
+			origin : 'bottom',
+			distance : '20px',
+			duration : 500,
+			reset    : true,
+			easing   : 'ease-in-out'
+		}
+		window.sr = ScrollReveal();
+		sr.reveal('.reveal', reveal);
+	</script>
+{% endblock %}

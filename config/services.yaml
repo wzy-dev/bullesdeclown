@@ -1,0 +1,85 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    categoryConst:             
+        general: 'Général'    
+        yoga: 'Yoga'    
+        clown: 'Clown'    
+        teambuilding: 'Team-Building'    
+        bienetre: 'Bien-Être'    
+        organisation: 'Organisation'      
+
+    dayConst:             
+        1: 'Lundi'    
+        2: 'Mardi'    
+        3: 'Mercredi'    
+        4: 'Jeudi'    
+        5: 'Vendredi'    
+        6: 'Samedi'    
+        7: 'Dimanche'    
+
+    typeConst:
+        presentation: 
+            name: 'Présentation'
+            description: 'Une photo un nom et quelques lignes pour se présenter.'
+        dataLeft:
+            name: 'Image et texte à gauche'
+            description: 'Du texte à gauche et une image à droite.'
+        dataRight:
+            name: 'Image et texte à droite'
+            description: 'Du texte à droite et une image à gauche.'
+        data:
+            name: 'Texte libre'
+            description: "Un espace libre pour écrire ce que l'on veut."
+        information:
+            name: 'Coordonnées'
+            description: 'Un numéro de téléphone et une adresse email pour être contacté.'
+        cover:
+            name: 'Couverture'
+            description: 'Une image en grand format et un titre.'
+        schedulde:
+            name: 'Horaires'
+            description: 'Un tableau pour y inscrire des horaires.'
+        rate:
+            name: 'Tarifs'
+            description: 'Des bulles pour y entrer des tarifs.'
+        articleBlock:
+            name: 'Actualités'
+            description: 'Un aperçu des actualités récentes et un lien vers la totalité.'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    twig.extension.sortbyfield:
+        class: Snilius\Twig\SortByFieldExtension
+        tags:
+            - { name: twig.extension }
+
+    App\Form\ArticleType:
+        arguments: ['%categoryConst%']
+        tags: [form.type]    
+
+    App\Form\ArticleBlockType:
+        arguments: ['%categoryConst%']
+        tags: [form.type]       
